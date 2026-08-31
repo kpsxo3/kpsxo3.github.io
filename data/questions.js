@@ -20,11 +20,11 @@ const questions = [
     correct: 'Positive'
   },
   {
-    text: '6. ...Methyl Red (MR) test test?',
+    text: '6. ...Methyl Red (MR) test?',
     correct: 'Positive'
   },
   {
-    text: '7. ...Voges-Proskauer....test?',
+    text: '7. ...Voges-Proskauer (VP)....test?',
     correct: 'Negative'
   },
   {
