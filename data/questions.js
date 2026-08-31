@@ -33,7 +33,7 @@ const questions = [
   },
   {
     text: '9. ........Urease........test....?',
-    correct: 'Positive'
+    correct: 'Negative'
   },
   {
     text: '10. ...The last question....<br>Gram-positive or Gram-negative?',
