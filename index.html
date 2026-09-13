@@ -255,23 +255,28 @@
   <script src="battleScene.js"></script>
 
   <!-- สคริปต์ควบคุมปุ่มเต็มจอ -->
-  <script>
+ <script>
     const fullscreenBtn = document.querySelector('#fullscreenBtn')
-    const gameContainer = document.querySelector('#gameContainer')
 
     fullscreenBtn.addEventListener('click', () => {
       if (!document.fullscreenElement) {
-        if (gameContainer.requestFullscreen) {
-          gameContainer.requestFullscreen()
-        } else if (gameContainer.webkitRequestFullscreen) {
-          gameContainer.webkitRequestFullscreen()
+        // ขยายทั้งหน้าเว็บ (document.documentElement) แทนที่จะขยายแค่ gameContainer
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen()
+        } else if (document.documentElement.webkitRequestFullscreen) {
+          document.documentElement.webkitRequestFullscreen()
         }
-        fullscreenBtn.innerText = '✖ Exit'
       } else {
         if (document.exitFullscreen) {
           document.exitFullscreen()
         }
-        fullscreenBtn.innerText = '⛶ เต็มจอ'
+      }
+    })
+
+    // อัปเดตข้อความปุ่มอัตโนมัติ (รองรับทั้งการคลิกปุ่ม และการกดปุ่ม Esc บนคีย์บอร์ด)
+    document.addEventListener('fullscreenchange', () => {
+      if (document.fullscreenElement) {
+        fullscreenBtn.innerText = '✖ Exit'
       }
     })
   </script>
