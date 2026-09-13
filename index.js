@@ -599,4 +599,6 @@ addEventListener('click', () => {
 	clicked = true
 })
 
-animate()
+image.onload = () => {
+  animate()
+}
