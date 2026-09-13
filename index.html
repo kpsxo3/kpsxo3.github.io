@@ -27,7 +27,7 @@
       align-items: center;
       height: 100vh;
       width: 100vw;
-      overflow: hidden; /* ซ่อน scrollbar */
+      overflow: hidden; 
     }
 
     #gameContainer {
@@ -197,9 +197,8 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Biochemistry Test Result Modal -->
+     <!-- Biochemistry Test Result Modal -->
     <div id="bioModal" style="
       display: none; 
       position: fixed; 
@@ -222,9 +221,10 @@
         <h2 id="bioModalTitle" style="color: #fbbf24; margin-bottom: 12px; font-size: 20px;">Biochemistry Result</h2>
         
         <img id="bioModalImg" src="" alt="Result" style="
-          width: 100%;
-          max-width: 950px; 
-          max-height: 82vh; 
+          width: auto;
+          height: auto;
+          max-width: 92%; 
+          max-height: 75%;
           object-fit: contain; 
           border: 4px solid #fff; 
           border-radius: 8px; 
@@ -233,6 +233,9 @@
         <p style="color: #d1d5db; margin-top: 12px; font-size: 14px;">(Click anywhere to close)</p>
       </div>
     </div>
+  </div>
+
+ 
 
   <!-- External Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" crossorigin="anonymous"></script>
@@ -257,28 +260,34 @@
   <!-- สคริปต์ควบคุมปุ่มเต็มจอ -->
  <script>
     const fullscreenBtn = document.querySelector('#fullscreenBtn')
+    const gameContainer = document.querySelector('#gameContainer')
 
     fullscreenBtn.addEventListener('click', () => {
-      if (!document.fullscreenElement) {
-        // ขยายทั้งหน้าเว็บ (document.documentElement) แทนที่จะขยายแค่ gameContainer
-        if (document.documentElement.requestFullscreen) {
-          document.documentElement.requestFullscreen()
-        } else if (document.documentElement.webkitRequestFullscreen) {
-          document.documentElement.webkitRequestFullscreen()
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        if (gameContainer.requestFullscreen) {
+          gameContainer.requestFullscreen()
+        } else if (gameContainer.webkitRequestFullscreen) {
+          gameContainer.webkitRequestFullscreen()
         }
       } else {
         if (document.exitFullscreen) {
           document.exitFullscreen()
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen()
         }
       }
     })
 
-    // อัปเดตข้อความปุ่มอัตโนมัติ (รองรับทั้งการคลิกปุ่ม และการกดปุ่ม Esc บนคีย์บอร์ด)
-    document.addEventListener('fullscreenchange', () => {
-      if (document.fullscreenElement) {
+    function updateFullscreenBtnText() {
+      if (document.fullscreenElement || document.webkitFullscreenElement) {
         fullscreenBtn.innerText = '✖ Exit'
+      } else {
+        fullscreenBtn.innerText = '⛶ fullscreen'
       }
-    })
+    }
+
+    document.addEventListener('fullscreenchange', updateFullscreenBtnText)
+    document.addEventListener('webkitfullscreenchange', updateFullscreenBtnText)
   </script>
 </body>
 </html>
